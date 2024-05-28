@@ -19,6 +19,8 @@ rm -rf menu-noobzvpns
 rm -rf menu-ss
 rm -rf menu-ipsec
 rm -rf menu-udp
+rm -rf menu-theme
+rm -rf menu-udp
 rm -rf setting
 rm -rf restart
 rm -rf running
@@ -39,6 +41,7 @@ wget -q -O /usr/bin/menu-vless "https://raw.githubusercontent.com/tanilink/stunn
 wget -q -O /usr/bin/menu-vmess "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-vmess.sh" && chmod +x /usr/bin/menu-vmess
 wget -q -O /usr/bin/menu-ss "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-ss.sh" && chmod +x /usr/bin/menu-ss
 wget -q -O /usr/bin/menu-noobzvpns "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-noobzvpns.sh" && chmod +x /usr/bin/menu-noobzvpns
+wget -q -O /usr/bin/menu-udp "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-udp.sh" && chmod +x /usr/bin/menu-udp
 wget -q -O /usr/bin/trial-generator "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/trial/trial-generator.sh" && chmod +x /usr/bin/trial-generator
 wget -q -O /usr/bin/menu-ipsec "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/ipsec/menu-ipsec.sh" && chmod +x /usr/bin/menu-ipsec
 wget -q -O /usr/bin/system "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/system.sh" && chmod +x /usr/bin/system
@@ -51,7 +54,7 @@ wget -q -O /usr/bin/restart "https://raw.githubusercontent.com/tanilink/stunnelv
 wget -q -O /usr/bin/menu-udp "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-udp.sh" && chmod +x /usr/bin/menu-udp
 wget -q -O /usr/bin/menu-bot "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-bot.sh" && chmod +x /usr/bin/menu-bot
 wget -q -O /usr/bin/addhost  "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/addhost.sh" && chmod +x /usr/bin/addhost
-#wget -qwget -q -O /usr/bin/menu-udp "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-udp.sh" && chmod +x /usr/bin/menu-udp
+wget -q -O /usr/bin/menu-theme "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/Themes/thema.sh" && chmod +x /usr/bin/menu-theme
 echo -e "sleep 3 "
 clear
 echo -e "\e[32;1mSuccessfully\e[0m"
