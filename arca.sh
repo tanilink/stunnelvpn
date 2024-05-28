@@ -9,7 +9,7 @@ wget -q -O /root/status "https://raw.githubusercontent.com/tanilink/stunnelvpn/m
 wget -q -O /etc/version "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/versiupdate" && chmod +x /etc/version
 
 #wget -q -O /usr/bin/menu "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu.sh"
-wget -q -O /usr/bin/menu1 "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu1.sh"
+wget -q -O /usr/bin/menu "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu.sh"
 wget -q -O /usr/bin/delv2ray "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/delv2ray.sh"
 #wget -q -O /usr/bin/add-ws "https://raw.githubusercontent.com/Agunxzzz/XrayCol/main/minacantik/add-ws.sh"
 #wget -q -O /usr/bin/add-ssws "https://raw.githubusercontent.com/Agunxzzz/XrayCol/main/minacantik/add-ssws.sh"
@@ -55,7 +55,7 @@ wget -q -O /usr/bin/fix "https://raw.githubusercontent.com/tanilink/stunnelvpn/m
 #wget -q -O /usr/bin/update "https://raw.githubusercontent.com/Agunxzzz/XrayCol/main/minacantik/update.sh"
 wget -q -O /etc/cyber.site "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/cyber.site"
 wget -q -O /root/versi "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/versiupdate"
-wget -q -O /usr/bin/updatsc "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/update.sh"
+wget -q -O /usr/bin/upsc "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/upsc.sh"
 wget -q -O /usr/bin/menu-backup "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-backup.sh"
 wget -q -O /usr/bin/fix "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/cf.sh"
 wget -q -O /usr/bin/setting "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/Themes/setting.sh"
@@ -63,7 +63,7 @@ wget -q -O /usr/bin/menu-ipsec "https://raw.githubusercontent.com/tanilink/stunn
 wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/SLDNS/wslow.sh
 wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/backup/set-br.sh
 bash set-br.sh
-wget -q -O /usr/bin/thema "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/Themes/thema.sh"
+wget -q -O /usr/bin/menu-theme "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/Themes/thema.sh"
 wget -q -O /usr/bin/trial "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/trial/trial.sh"
 wget -q -O /usr/bin/trial "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/trial/trial.sh" && chmod +x /usr/bin/trial
 wget -q -O /usr/bin/trial-vmess "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/trial/trial-vmess.sh" && chmod +x /usr/bin/trial-vmess
@@ -301,6 +301,7 @@ chmod +x /usr/bin/fix
 chmod +x /usr/bin/setting
 chmod +x /usr/bin/menu-ipsec
 chmod +x /usr/bin/trial
+chmod +x /usr/bin/menu-theme
 mkdir -p /etc/ssnvpn/theme/
 touch /etc/ssnvpn/theme/color.conf
 touch /root/limit/rulesxray.txt
