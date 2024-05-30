@@ -406,7 +406,7 @@ echo -e ""
 read -p " Just Input :  "  opt
 echo -e ""
 case $opt in
-1) clear ; addudp ;;
+1) clear ; add-udp ;;
 2) clear ; del ;;
 3) clear ; renew;;
 4) clear ; cek ;;
