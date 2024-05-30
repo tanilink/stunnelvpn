@@ -44,6 +44,7 @@ rm -rf usernew
 rm -rf add-udp
 rm -rf addhost
 rm -rf genssl
+rm -rf trial-generator
 # // Download Data Baru
 # // menu
 wget -q -O /usr/bin/menu "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu.sh" && chmod +x /usr/bin/menu
@@ -70,7 +71,7 @@ wget -q -O /usr/bin/restart "https://raw.githubusercontent.com/tanilink/stunnelv
 wget -q -O /usr/bin/addhost  "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/addhost.sh" && chmod +x /usr/bin/addhost
 wget -q -O /usr/bin/menu-theme "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/Themes/thema.sh" && chmod +x /usr/bin/menu-theme
 
-#wget -q -O /usr/bin/menu-udp "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-udp.h" && chmod +x /usr/bin/upsc
+wget -q -O /usr/bin/trial-generator "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/trial/trial-generator.sh" && chmod +x /usr/bin/trial-generator
 wget -q -O /usr/bin/add-udp "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/add-udp.sh" && chmod +x /usr/bin/add-udp
 wget -q -O /usr/bin/mstrt "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/backup/strt.sh" && chmod +x /usr/bin/mstrt
 #wget -q -O /usr/bin/menu-udp "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-udp.sh" && chmod +x /usr/bin/menu-udp
