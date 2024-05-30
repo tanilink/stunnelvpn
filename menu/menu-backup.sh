@@ -52,7 +52,7 @@ fi
 if [ $bro = 3 ] || [ $bro = 3 ]
 then
 figlet "strt"
-mstrt
+strt
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "\e[44;97;1m              TANILINK             \e[0m"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
