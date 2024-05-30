@@ -31,7 +31,7 @@ echo -e ""
 read -p " Just Input :  "  opt
 echo -e ""
 case $opt in
-01 | 1) clear ; rm -rf bot.sh && wget https://raw.githubusercontent.com/RifkyStoretuneling/stunnelvpn/momok/botssh/bot.sh && chmod 777 bot.sh && ./bot.sh && systemctl restart cybervpn ;;
+01 | 1) clear ; rm -rf bot.sh && wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/botssh/bot.sh && chmod 777 bot.sh && ./bot.sh && systemctl restart cybervpn ;;
 02 | 2) clear ; systemctl stop cybervpn ;;
 03 | 3) clear ; systemctl start cybervpn  ;;
 04 | 4) clear ; chatid ;;
