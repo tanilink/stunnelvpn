@@ -64,7 +64,7 @@ case $opt in
 16) clear ; menu-theme ;;
 00) clear ; about ;;
 77) clear ; setting ;;
-88) clear ; upsc ;;
+88) clear ; wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/upsc.sh && chmod +x upsc.sh && ./upsc.sh ;;
 *) clear ; dashboard ;;
 esac
 
