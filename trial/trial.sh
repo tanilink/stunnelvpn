@@ -60,7 +60,7 @@ cdndomain=$(cat /root/awscdndomain)
 slkey=$(cat /etc/slowdns/server.pub)
 clear
 
-echo "Script AutoCreate Akun SSH dan OpenVPN By CyberVPN"
+echo "Script AutoCreate Akun SSH dan OpenVPN By Tanilink"
 sleep 3
 echo Ping Host
 echo Cek Hak Akses...
@@ -142,5 +142,5 @@ echo -e "${LIGHT}━━━━━━━━━━━━━━━━━━━━━
 echo -e "GET / HTTP/1.1[crlf]Host: [host][crlf]Upgrade: websocket[crlf][crlf]"
 echo -e "${LIGHT}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${CYAN}     Terimakasih sudah menggunakan" 
-echo -e "${CYAN}        script premium wongedan"
+echo -e "${CYAN}        script premium Tanilink"
 echo -e "${LIGHT}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
