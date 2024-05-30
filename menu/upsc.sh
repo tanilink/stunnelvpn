@@ -1,5 +1,8 @@
 #!/bin/bash
 clear
+rm -rf upsc.sh
+rm -rf upsc.sh.1
+rm -rf upsc.sh.2
 dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 ###########- COLOR CODE -##############
@@ -65,7 +68,7 @@ wget -q -O /usr/bin/addhost  "https://raw.githubusercontent.com/tanilink/stunnel
 wget -q -O /usr/bin/menu-theme "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/Themes/thema.sh" && chmod +x /usr/bin/menu-theme
 
 #wget -q -O /usr/bin/menu-udp "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-udp.h" && chmod +x /usr/bin/upsc
-wget -q -O /usr/bin/add-udp "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/add-udp.sh" && chmod +x /usr/bin/running
+wget -q -O /usr/bin/add-udp "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/add-udp.sh" && chmod +x /usr/bin/add-udp
 wget -q -O /usr/bin/mstrt "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/backup/strt.sh" && chmod +x /usr/bin/mstrt
 #wget -q -O /usr/bin/menu-udp "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-udp.sh" && chmod +x /usr/bin/menu-udp
 #wget -q -O /usr/bin/menu-bot "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-bot.sh" && chmod +x /usr/bin/menu-bot
