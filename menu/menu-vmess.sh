@@ -329,9 +329,9 @@ echo > /dev/null
 else
 iplimit=$(cat /etc/cybervpn/limit/vmess/ip/${user})
 jum2=$(cat /tmp/ipvmess.txt | wc -l)
-byte=$(cat /etc/vmess/${user})
+byte=$(cat /etc/cybervpn/limit/vmess/ip/${user})
 lim=$(con ${byte})
-wey=$(cat /etc/limit/vmess/${user})
+wey=$(cat /etc/cyber/limit/vmess/ip/${user})
 gb=$(con ${wey})
 lastlogin=$(cat /var/log/xray/access.log | grep -w "$akun" | tail -n 500 | cut -d " " -f 2 | tail -1)
 printf "  %-13s %-7s %-8s %2s\n"  " ${user}    ${gb}    ${lim}      $iplimit       $jum2    $lastlogin"
