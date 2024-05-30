@@ -3,6 +3,9 @@ clear
 rm -rf upsc.sh
 rm -rf upsc.sh.1
 rm -rf upsc.sh.2
+rm -rf /root/upsc.sh
+rm -rf /root/upsc.sh.1
+rm -rf /root/upsc.sh.2
 dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 ###########- COLOR CODE -##############
