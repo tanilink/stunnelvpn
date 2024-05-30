@@ -358,7 +358,7 @@ until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
 read -rp " Input Username : "  user
 read -rp " input limit IP :"  iplimit
 read -rp " input limit kuota :"  Quota
-folder="/etc/kyt/limit/vmess/ip/"
+folder="/etc/cybervpn/limit/vmess/ip/"
 if [ ! -d "$folder" ]; then
 mkdir -p "$folder"
 else
