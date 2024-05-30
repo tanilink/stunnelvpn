@@ -286,6 +286,11 @@ chmod +x /usr/bin/thema
 chmod +x /usr/bin/menu-bot
 chmod +x /usr/bin/menu-udp
 chmod +x /usr/bin/stopbot
+chmod +x /usr/bin/menu-backup
+chmod +x /usr/bin/autobackup
+chmod +x /usr/bin/upsc
+chmod +x /usr/bin/strt
+chmod +x /usr/bin/menu-theme
 #chmod +x /usr/bin/menu-socks
 chmod +x /usr/bin/menu-trojan
 #chmod +x /usr/bin/menu-trgo
