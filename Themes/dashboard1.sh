@@ -184,7 +184,7 @@ fi
 #bot
 clear
 echo -e "\e[34;1m┌──────────────────────────────────────────────────┐\e[0m"
-echo -e "\e[34;1m│ \E[41;37;1m         °RIFQI STORE 57 VPN TUNELING°          \E[0m \e[34;1m│\e[0m"
+echo -e "\e[34;1m│ \E[41;37;1m                  °TANILINK°                    \E[0m \e[34;1m│\e[0m"
 echo -e "\e[34;1m└──────────────────────────────────────────────────┘\e[0m"
 echo -e "\e[34;1m                     ${status_dos}                        \e[0m"
 echo -e "\e[34;1m                     \e[37;1m $(((d1 - d2) / 86400))\e[35;1m.Left\e[0m"            
