@@ -13,7 +13,7 @@ ssx=$(grep -c -E "^## " "/etc/xray/config.json")
 let ssa=$ssx/2
 
 nob=$(noobzvpns --info-all-user | grep -i "username" | wc -l)
-noob=$(cat /etc/noobzvpns/.noobzvpns.db | grep "#nob#" | wc -l)
+noob=$(cat /etc/cybervpn/limit/noobs/.noobzvpns.db | grep "#nob#" | wc -l)
 
 clear
 # // Exporting Language to UTF-8
