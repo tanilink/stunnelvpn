@@ -2,23 +2,24 @@
 
 # Getting
 MYIP=$(wget -qO- ipinfo.io/ip);
-echo "Checking VPS"
+echo "memeriksa vps anda"
+sleep 0.5
 CEKEXPIRED () {
-    today=$(date -d +1day +%Y-%m-%d)
-    Exp1=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep $MYIP | awk '{print $3}')
-    if [[ $today < $Exp1 ]]; then
-    echo -e "\e[32mSTATUS SCRIPT AKTIF...\e[0m"
-    else
-    echo -e "\e[31mSCRIPT ANDA EXPIRED!\e[0m";
-    exit 0
+        today=$(date -d +1day +%Y -%m -%d)
+        Exp1=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep $MYIP | awk '{print $3}')
+        if [[ $today < $Exp1 ]]; then
+        echo "status script aktif.."
+        else
+        echo "SCRIPT ANDA EXPIRED";
+        exit 0
 fi
 }
 IZIN=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | awk '{print $4}' | grep $MYIP)
 if [ $MYIP = $IZIN ]; then
-echo -e "\e[32mPermission Accepted...\e[0m"
+echo "IZIN DI TERIMA!!"
 CEKEXPIRED
 else
-echo -e "\e[31mPermission Denied!\e[0m";
+echo "Akses di tolak!! Benget sia hurung!!";
 exit 0
 fi
 clear
