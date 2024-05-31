@@ -5,10 +5,10 @@ MYIP=$(wget -qO- ipinfo.io/ip);
 clear
 apt install jq curl -y
 sub=$(</dev/urandom tr -dc a-z | head -c4)
-DOMAIN=remoot.my.id
-SUB_DOMAIN=${sub}.remoot.my.id
-CF_ID=arismar.amar@gmail.com
-CF_KEY=f7fa85e2472592639b7d1cf82f1c5490ec1cd
+DOMAIN=kingvpn.my.id
+SUB_DOMAIN=${sub}.kingvpn.my.id
+CF_ID=hannaugo@gmail.com
+CF_KEY=e3341a6705e970eda3577f440d0cca6e3d682
 set -euo pipefail
 IP=$(curl -sS ifconfig.me);
 echo "Updating DNS for ${SUB_DOMAIN}..."
