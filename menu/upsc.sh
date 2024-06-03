@@ -46,6 +46,7 @@ rm -rf addhost
 rm -rf genssl
 rm -rf trial-generator
 rm -rf trial-vmess
+rm -rf statushariini
 # // Download Data Baru
 # // menu
 wget -q -O /usr/bin/menu "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu.sh" && chmod +x /usr/bin/menu
@@ -67,18 +68,14 @@ wget -q -O /usr/bin/about "https://raw.githubusercontent.com/tanilink/stunnelvpn
 wget -q -O /usr/bin/running "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/running.sh" && chmod +x /usr/bin/running
 wget -q -O /usr/bin/setting "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/Themes/setting.sh" && chmod +x /usr/bin/setting
 wget -q -O /usr/bin/upsc "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/upsc.sh" && chmod +x /usr/bin/upsc
-wget -q -O /usr/bin/running "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/running.sh" && chmod +x /usr/bin/running
 wget -q -O /usr/bin/restart "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/restart.sh" && chmod +x /usr/bin/restart
 wget -q -O /usr/bin/addhost  "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/addhost.sh" && chmod +x /usr/bin/addhost
 wget -q -O /usr/bin/menu-theme "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/Themes/thema.sh" && chmod +x /usr/bin/menu-theme
-
-wget -q -O /usr/bin/trial-generator "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/trial/trial-generator.sh" && chmod +x /usr/bin/trial-generator
 wget -q -O /usr/bin/add-udp "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/add-udp.sh" && chmod +x /usr/bin/add-udp
 wget -q -O /usr/bin/mstrt "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/backup/strt.sh" && chmod +x /usr/bin/mstrt
 wget -q -O /usr/bin/trial-vmess "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/trial/trial-vmess.sh" && chmod +x /usr/bin/trial-vmess
-#wget -q -O /usr/bin/menu-bot "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/menu-bot.sh" && chmod +x /usr/bin/menu-bot
 wget -q -O /usr/bin/genssl  "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/genssl.sh" && chmod +x /usr/bin/genssl
-#wget -q -O /usr/bin/addhost "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/addhost.sh" && chmod +x /usr/bin/addhost
+wget -q -O /usr/bin/statushariini  "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/statushariini.sh" && chmod +x /usr/bin/statushariini
 echo -e "sleep 3 "
 
 
