@@ -69,7 +69,7 @@ if getent passwd $Pengguna > /dev/null 2>&1; then
 userdel $Pengguna > /dev/null 2>&1
 clear
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "\e[44;97;1m        LUNATIC TUNNELING           \e[0m"
+echo -e "\e[44;97;1m        TANILINK TUNNELING           \e[0m"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e ""
 echo -e "\e[96;1m Username   : $Pengguna "
@@ -130,7 +130,7 @@ done
 echo " "
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "\e[44;91;1m        LUNATIC TUNNELING          \e[0m"
+echo -e "\e[44;91;1m        TANILINK TUNNELING          \e[0m"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 read -n 1 -s -r -p "Press any key to back on menu"
 menu
@@ -588,7 +588,7 @@ echo -e "GET / HTTP/1.1[crlf]Host: [host][crlf]Upgrade: websocket[crlf][crlf]"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "Payload enanched"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "PATCH /ssh-lunatic HTTP/1.1[crlf]Host: [host][crlf]Host: ISIBUG[crlf]Upgrade: websocket[crlf]Connection: Upgrade[crlf]User-Agent: [ua][crlf][crlf]"
+echo -e "PATCH /ssh-TANILINK HTTP/1.1[crlf]Host: [host][crlf]Host: ISIBUG[crlf]Upgrade: websocket[crlf]Connection: Upgrade[crlf]User-Agent: [ua][crlf][crlf]"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "\e[44;97;1m              TANILINK             \e[0m"
