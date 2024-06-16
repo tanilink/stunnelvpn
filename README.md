@@ -5,7 +5,7 @@ apt-get update && apt-get upgrade -y && apt dist-upgrade -y && update-grub && re
 ```
 # INSTALL SCRIPT
 ```
-sudo apt-get install gnupg -y && sudo apt install iptables && wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/install.sh && chmod +x install.sh && ./install.sh
+wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/install.sh && chmod +x install.sh && ./install.sh
 ```
 # UPDATE SC
 ```
