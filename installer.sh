@@ -18,13 +18,7 @@ CEKEXPIRED() {
         exit 0
     fi
 }
-IZIN=$(curl -sS https://githubusercontent.com/tanilink/REGISTER/main/IPVPS | awk '{print $4}' | grep $MYIP)
-if [ $MYIP = $IZIN ]; then
-echo "IZIN DI TERIMA!!"
-else
-echo "Akses di tolak!! Benget sia hurung!!";
-exit 0
-fi
+
 
 
 localip=$(hostname -I | cut -d\  -f1)
