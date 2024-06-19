@@ -43,7 +43,7 @@ rm -rf mstrt
 rm -rf usernew
 rm -rf add-udp
 rm -rf addhost
-rm -rf nginx-ssl
+rm -rf ngenssl
 rm -rf trial-generator
 rm -rf trial-vmess
 rm -rf statushariini
@@ -74,7 +74,7 @@ wget -q -O /usr/bin/menu-theme "https://raw.githubusercontent.com/tanilink/stunn
 wget -q -O /usr/bin/add-udp "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/add-udp.sh" && chmod +x /usr/bin/add-udp
 wget -q -O /usr/bin/mstrt "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/backup/strt.sh" && chmod +x /usr/bin/mstrt
 wget -q -O /usr/bin/trial-vmess "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/trial/trial-vmess.sh" && chmod +x /usr/bin/trial-vmess
-wget -q -O /usr/bin/genssl  "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/nginx-ssl.sh" && chmod +x /usr/bin/nginx-ssl
+wget -q -O /usr/bin/genssl  "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/genssl.sh" && chmod +x /usr/bin/genssl
 wget -q -O /usr/bin/statushariini  "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/statushariini.sh" && chmod +x /usr/bin/statushariini
 echo -e "sleep 3 "
 
