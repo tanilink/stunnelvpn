@@ -5,7 +5,7 @@ apt-get update && apt-get upgrade -y && apt dist-upgrade -y && update-grub && re
 ```
 # INSTALL SCRIPT
 ```
-wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/install.sh && chmod +x install.sh && ./install.sh
+wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/installer.sh && chmod +x installer.sh && ./installer.sh
 ```
 # UPDATE SC
 ```
