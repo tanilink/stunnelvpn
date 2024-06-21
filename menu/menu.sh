@@ -40,7 +40,7 @@ echo -e "\e[31;1m[00]• ABOUT    \e[0m"
 echo -e "\e[31;1m[77]• SETTINGS \e[0m"
 echo -e "\e[31;1m[88]• UPDATE SC\e[0m"
 echo -e "\e[33;1m┌───────────────────────────────────────────────┐\e[0m"
-echo -e "\e[33;1m│\e[44;97;1m               • TANILINK  •                   \e[0m\e[33;1m│"             
+echo -e "\e[33;1m│\e[44;97;1m      • RIFQI STORE 57 VPN TUNELING  •         \e[0m\e[33;1m│"             
 echo -e "\e[33;1m└───────────────────────────────────────────────┘\e[0m"
 echo -e ""
 read -p " Just Input : " opt
@@ -64,7 +64,7 @@ case $opt in
 16) clear ; menu-theme ;;
 00) clear ; about ;;
 77) clear ; setting ;;
-88) clear ; wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/upsc.sh && chmod +x upsc.sh && ./upsc.sh ;;
+88) clear ; upsc ;;
 *) clear ; dashboard ;;
 esac
 
