@@ -40,7 +40,7 @@ echo -e "\e[31;1m[00]• ABOUT    \e[0m"
 echo -e "\e[31;1m[77]• SETTINGS \e[0m"
 echo -e "\e[31;1m[88]• UPDATE SC\e[0m"
 echo -e "\e[33;1m┌───────────────────────────────────────────────┐\e[0m"
-echo -e "\e[33;1m│\e[44;97;1m      • RIFQI STORE 57 VPN TUNELING  •         \e[0m\e[33;1m│"             
+echo -e "\e[33;1m│\e[44;97;1m      •  TaniLink  •         \e[0m\e[33;1m│"             
 echo -e "\e[33;1m└───────────────────────────────────────────────┘\e[0m"
 echo -e ""
 read -p " Just Input : " opt
