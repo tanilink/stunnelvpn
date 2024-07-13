@@ -83,7 +83,7 @@ echo -e " Copy 2  : $domain:1-2288@$Login:$Pass"
 echo -e " Copy 3  : $domain:1-12345@$Login:$Pass"
 echo -e ""
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "\e[44;97;1m        LUNATIC TUNNELING          \e[0m"
+echo -e "\e[44;97;1m        Tanilink TUNNELING          \e[0m"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo
 read -p "Enter To Menu"
