@@ -3,7 +3,7 @@
 
 # status
 #rm -rf /root/status
-#wget -q -O /root/status "https://raw.githubusercontent.com/LT-BACKEND/stunnelvpn/momok/statushariini"
+#wget -q -O /root/status "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/statushariini"
 
 
 clear
