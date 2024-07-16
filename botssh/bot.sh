@@ -19,7 +19,7 @@ apt install python3 python3-pip -y
 apt install sqlite3 -y
 cd /media/
 rm -rf cybervpn
-wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/botssh/cybervpn.zip
+wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/botssh/cibervpn.zip
 unzip cybervpn.zip
 cd cybervpn
 rm var.txt
@@ -53,7 +53,7 @@ END
 
 clear
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "\e[44;97;1m             TANILINK              \e[0m"
+echo -e "\e[44;97;1m             ILINK              \e[0m"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e ""
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
