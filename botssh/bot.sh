@@ -19,7 +19,7 @@ apt install python3 python3-pip -y
 apt install sqlite3 -y
 cd /media/
 rm -rf cybervpn
-wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/botssh/cibervpn.zip
+wget https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/botssh/cybervpn.zip
 unzip cybervpn.zip
 cd cybervpn
 rm var.txt
