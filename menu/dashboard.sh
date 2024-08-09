@@ -88,7 +88,7 @@ exit 0
 fi
 # status
 #rm -rf /root/status
-#wget -q -O /root/status "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/statushariini" 
+#wget -q -O /root/status "https://raw.githubusercontent.com/RifkyStoretuneling/stunnelvpn/momok/statushariini" 
 clear
 today=`date -d "0 days" +"%Y-%m-%d"`
 Exp2=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep $MYIP | awk '{print $3}')
@@ -124,7 +124,7 @@ fi
 #cpu2="$(mpstat | awk '{print $6}' | head -4 |tail -n 1)"
 
 #update
-#wget -q -O updatsc.sh "https://raw.githubusercontent.com/tanilink/stunnelvpn/momok/menu/updateyes.sh" && chmod +x updatsc.sh && ./updatsc.sh 
+#wget -q -O updatsc.sh "https://raw.githubusercontent.com/RifkyStoretuneling/stunnelvpn/momok/menu/updateyes.sh" && chmod +x updatsc.sh && ./updatsc.sh 
 
 # // Exporting IP Address
 export MYIP=$( curl -s https://ipinfo.io/ip/ )
@@ -184,7 +184,7 @@ fi
 #bot
 clear
 echo -e "\e[33;1m┌──────────────────────────────────────────────────┐\e[0m"
-echo -e "\e[33;1m│ \E[44;37;1m                   °TANILINK°                   \E[0m \e[33;1m│\e[0m"
+echo -e "\e[33;1m│ \E[44;37;1m         °VPN TUNELING°          \E[0m \e[33;1m│\e[0m"
 echo -e "\e[33;1m└──────────────────────────────────────────────────┘\e[0m"
 #echo -e "\e[33;1m                     ${status_dos}                        \e[0m"
 echo -e "\e[33;1m                     \e[37;1m $(((d1 - d2) / 86400))\e[35;1m.Left\e[0m"            
