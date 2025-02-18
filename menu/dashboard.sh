@@ -140,46 +140,46 @@ fi
 clear
 
 # Tampilan header
-echo -e "\e[33;1m███████████████████████████████████████████████\e[0m"
-echo -e "\e[33;1m█           \e[44;37;1m VPN TUNNELING STATUS \e[0m           █\e[0m"
-echo -e "\e[33;1m███████████████████████████████████████████████\e[0m"
+echo -e "\e[33;1m┌───────────────────────────────────────────────┐\e[0m"
+echo -e "\e[33;1m│   🚀  \e[44;37;1m  VPN TUNNELING STATUS  \e[0m  🚀   \e[33;1m│\e[0m"
+echo -e "\e[33;1m└───────────────────────────────────────────────┘\e[0m"
 
 # Tampilkan sisa hari masa aktif (sertifikat)
 echo -e "\e[33;1m                     \e[37;1m ${left} Hari Tersisa\e[0m"
 
 # Tampilan status sistem dan jaringan
-echo -e "\e[33;1m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\e[0m"
-echo -e "\e[33;1m┃       \e[44;37;1m SYSTEM & NETWORK STATUS \e[0m       \e[33;1m┃\e[0m"
-echo -e "\e[33;1m┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\e[0m"
-echo -e "\e[33;1m┃ 🔄 Uptime   : \e[32;1m$(uptime -p | cut -d ' ' -f2-)\e[0m"
-echo -e "\e[33;1m┃ 🕒 Waktu    : \e[32;1m$(date -d '0 days' +"%d-%m-%Y | %X")\e[0m"
-echo -e "\e[33;1m┃ 🌐 Domain   : \e[32;1m$(cat /etc/xray/domain)\e[0m"
-echo -e "\e[33;1m┃ 🔗 NS Domain: \e[32;1m$(cat /root/nsdomain)\e[0m"
-echo -e "\e[33;1m┃ 📡 IP VPS   : \e[32;1m$MYIP\e[0m"
-echo -e "\e[33;1m┃ 🏢 ISP      : \e[32;1m$(curl -s ipinfo.io/org | cut -d ' ' -f2-10)\e[0m"
-echo -e "\e[33;1m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\e[0m"
+echo -e "\e[33;1m==================================================\e[0m"
+echo -e "\e[33;1m       \e[44;37;1m SYSTEM & NETWORK STATUS \e[0m       \e[33;1m"
+echo -e "\e[33;1m==================================================\e[0m"
+echo -e "\e[33;1m 🔄 Uptime   : \e[32;1m$(uptime -p | cut -d ' ' -f2-)\e[0m"
+echo -e "\e[33;1m 🕒 Waktu    : \e[32;1m$(date -d '0 days' +"%d-%m-%Y | %X")\e[0m"
+echo -e "\e[33;1m 🌐 Domain   : \e[32;1m$(cat /etc/xray/domain)\e[0m"
+echo -e "\e[33;1m 🔗 NS Domain: \e[32;1m$(cat /root/nsdomain)\e[0m"
+echo -e "\e[33;1m 📡 IP VPS   : \e[32;1m$MYIP\e[0m"
+echo -e "\e[33;1m 🏢 ISP      : \e[32;1m$(curl -s ipinfo.io/org | cut -d ' ' -f2-10)\e[0m"
+echo -e "\e[33;1m==================================================\e[0m"
 
 # Tampilan status layanan
-echo -e "\e[91;1m████████████████████████████████████████████████\e[0m"
-echo -e "\e[91;1m█\e[92;1m     🚀 SERVICE STATUS MONITOR 🚀      \e[91;1m█\e[0m"
-echo -e "\e[91;1m████████████████████████████████████████████████\e[0m"
-echo -e "\e[91;1m█\e[94;1m SSH      \e[93;1m🔹 : \e[92;1m${status_ssh}   \e[91;1m█\e[0m"
-echo -e "\e[91;1m█\e[94;1m XRAY     \e[93;1m🔹 : \e[92;1m${status_xray}  \e[91;1m█\e[0m"
-echo -e "\e[91;1m█\e[94;1m NGINX    \e[93;1m🔹 : \e[92;1m${status_nginx} \e[91;1m█\e[0m"
-echo -e "\e[91;1m████████████████████████████████████████████████\e[0m"
+echo -e "\e[95;1m==========================================\e[0m"
+echo -e "\e[96;1m      🌈 SERVICE STATUS MONITOR 🌈      \e[0m"
+echo -e "\e[95;1m==========================================\e[0m"
+echo -e "\e[94;1m 🔹 SSH      : \e[92;1m${status_ssh}  \e[0m"
+echo -e "\e[94;1m 🔹 XRAY     : \e[92;1m${status_xray}  \e[0m"
+echo -e "\e[94;1m 🔹 NGINX    : \e[92;1m${status_nginx} \e[0m"
+echo -e "\e[95;1m==========================================\e[0m"
 
 # Tampilan informasi jumlah user dan protokol
-echo -e "\e[91;1m███████████████████████████████████████████████████\e[0m"
-echo -e "\e[91;1m█\e[92;1m         🚀 ACTIVE VPN CONNECTIONS 🚀         \e[91;1m█\e[0m"
-echo -e "\e[91;1m███████████████████████████████████████████████████\e[0m"
-echo -e "\e[94;1m 🔹 SSH/OVPN  🔒  : \e[92;1m$ssh1   \e[94;1m🔹 SHADOWSOCKS 🛡️  : \e[92;1m$ssa   \e[94;1m🔹 NOOBZVPN 🌐  : \e[92;1m$noob  \e[0m"
-echo -e "\e[94;1m 🔹 VMESS      ⚡  : \e[92;1m$vma    \e[94;1m🔹 VLESS       🔗  : \e[92;1m$vla   \e[94;1m🔹 TROJAN    🏴‍☠️  : \e[92;1m$tra   \e[0m"
-echo -e "\e[91;1m███████████████████████████████████████████████████\e[0m"
+echo -e "\e[95;1m===================================================\e[0m"
+echo -e "\e[96;1m              🌈 VPN CLIENT STATUS 🌈             \e[0m"
+echo -e "\e[95;1m===================================================\e[0m"
+echo -e "\e[94;1m 🔹 SSH/OVPN  : \e[92;1m$ssh1   \e[94;1m🔹 SHADOWSOCKS : \e[92;1m$ssa   \e[94;1m🔹 NOOBZVPN : \e[92;1m$noob  \e[0m"
+echo -e "\e[94;1m 🔹 VMESS     : \e[92;1m$vma    \e[94;1m🔹 VLESS       : \e[92;1m$vla   \e[94;1m🔹 TROJAN  : \e[92;1m$tra   \e[0m"
+echo -e "\e[95;1m===================================================\e[0m"
 
 # Tampilan petunjuk penggunaan menu
-echo -e "\e[91;1m███████████████████████████████████████████████████\e[0m"
-echo -e "\e[94;1m█         📜 \e[4;97mACCESS USE MENU COMMAND\e[0m 📜         \e[94;1m█\e[0m"
-echo -e "\e[91;1m███████████████████████████████████████████████████\e[0m"
+echo -e "\e[95;1m===================================================\e[0m"
+echo -e "\e[96;1m              \e[4;97mACCESS USE MENU COMMAND\e[0m             \e[0m"
+echo -e "\e[95;1m===================================================\e[0m"
 
 # Set warna akhir (opsional)
 echo -e "\e[35;1m"
