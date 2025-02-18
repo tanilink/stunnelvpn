@@ -1,83 +1,98 @@
 #!/bin/bash
 
-# Getting
-MYIP=$(wget -qO- ipinfo.io/ip);
+# Getting IP Address
+MYIP=$(wget -qO- ipinfo.io/ip)
 echo "Checking VPS"
+
+# Function to check script expiry
 CEKEXPIRED () {
-    today=$(date -d +1day +%Y-%m-%d)
+    today=$(date +%Y-%m-%d)
     Exp1=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep $MYIP | awk '{print $3}')
-    if [[ $today < $Exp1 ]]; then
-    echo -e "\e[32mSTATUS SCRIPT AKTIF...\e[0m"
+    if [[ "$today" < "$Exp1" ]]; then
+        echo -e "\e[32mSTATUS SCRIPT AKTIF...\e[0m"
     else
-    echo -e "\e[31mSCRIPT ANDA EXPIRED!\e[0m";
+        echo -e "\e[31mSCRIPT ANDA EXPIRED!\e[0m"
+        exit 0
+    fi
+}
+
+# Checking permission
+IZIN=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | awk '{print $4}' | grep $MYIP)
+if [ "$MYIP" = "$IZIN" ]; then
+    echo -e "\e[32mPermission Accepted...\e[0m"
+    CEKEXPIRED
+else
+    echo -e "\e[31mPermission Denied!\e[0m"
     exit 0
 fi
-}
-IZIN=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | awk '{print $4}' | grep $MYIP)
-if [ $MYIP = $IZIN ]; then
-echo -e "\e[32mPermission Accepted...\e[0m"
-CEKEXPIRED
+
+# Set domain
+if [[ -z "$IP" ]]; then
+    domain=$(cat /etc/xray/domain)
 else
-echo -e "\e[31mPermission Denied!\e[0m";
-exit 0
+    domain=$IP
 fi
 
+# Get Trojan WS port
+tr="$(cat ~/log-install.txt | grep -w "Trojan WS " | cut -d: -f2 | sed 's/ //g')"
 
+# Input for trial Trojan account
+until [[ "$user" =~ ^[a-zA-Z0-9_]+$ && "$user_EXISTS" == '0' ]]; do
+    clear
+    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo -e "\E[0;41;36m           TRIAL TROJAN ACCOUNT          \E[0m"
+    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo -e "Akumulasi masa aktif minimal 15 menit, (15=15 menit)"
+    read -p "Masukan angka (menit): " mm
+    if [[ $mm -lt 15 ]]; then
+        echo "Masa aktif minimal adalah 15 menit!"
+        continue
+    fi
+    Login=trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
+    user=$Login
+    user_EXISTS=$(grep -w $user /etc/xray/config.json | wc -l)
 
-if [[ "$IP" = "" ]]; then
-domain=$(cat /etc/xray/domain)
-else
-domain=$IP
-fi
-tr="$(cat ~/log-install.txt | grep -w "Trojan WS " | cut -d: -f2|sed 's/ //g')"
-until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${user_EXISTS} == '0' ]]; do
-clear
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "\E[0;41;36m           TRIAL TROJAN ACCOUNT          \E[0m"
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "Akumulasi masa aktif minimal 1 jam, (1=1jam)"
-read -p "Masukan angka: " hh
-		Login=trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
-		user=$Login
-		user_EXISTS=$(grep -w $user /etc/xray/config.json | wc -l)
-
-		if [[ ${user_EXISTS} == '1' ]]; then
-clear
-		echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-		echo -e "\E[0;41;36m         TRIAL  TROJAN ACCOUNT          \E[0m"
-		echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-			echo ""
-			echo "A client with the specified name was already created, please choose another name."
-			echo ""
-			echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-			read -n 1 -s -r -p "Press any key to back on menu"
-			m-trojan
-		fi
-	done
+    if [[ "$user_EXISTS" == '1' ]]; then
+        clear
+        echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+        echo -e "\E[0;41;36m         TRIAL  TROJAN ACCOUNT          \E[0m"
+        echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+        echo ""
+        echo "A client with the specified name was already created, please choose another name."
+        echo ""
+        echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+        read -n 1 -s -r -p "Press any key to back on menu"
+        m-trojan
+    fi
+done
 
 uuid=$(cat /proc/sys/kernel/random/uuid)
-masaaktif=$hh
-exp=`date -d "$masaaktif hour" +"%T"`
+masaaktif=$mm
+exp=$(date -d "$masaaktif minute" +"%T")
+
+# Update config.json with the trial Trojan account
 sed -i '/#trojanws$/a\#! '"$user $exp"'\
 },{"password": "'""$uuid""'","email": "'""$user""'"' /etc/xray/config.json
 sed -i '/#trojangrpc$/a\#! '"$user $exp"'\
 },{"password": "'""$uuid""'","email": "'""$user""'"' /etc/xray/config.json
 
-DATADB=$(cat /root/akun/trojan/.trojan.conf | grep "^#!" | grep -w "${user}" | awk '{print $2}')
-if [[ "${DATADB}" != '' ]]; then
-  sed -i "/\b${user}\b/d" /root/akun/trojan/.trojan.conf
+# Handle Trojan account database
+DATADB=$(cat /root/akun/trojan/.trojan.conf | grep "^#" | grep -w "${user}" | awk '{print $2}')
+if [[ -n "$DATADB" ]]; then
+    sed -i "/\b${user}\b/d" /root/akun/trojan/.trojan.conf
 fi
-echo "#! ${user} ${exp} ${uuid}" >>/root/akun/trojan/.trojan.conf
+echo "#! ${user} ${exp} ${uuid}" >> /root/akun/trojan/.trojan.conf
 
-# Link Trojan Akun
+# Restart XRay service
 systemctl restart xray
+
+# Generate Trojan account links
 trojanlink1="trojan://${uuid}@${domain}:443?mode=gun&security=tls&type=grpc&serviceName=trojan-grpc&sni=bug.com#${user}"
 trojanlink="trojan://${uuid}@bugkamu.com:443?path=%2Ftrojan-ws&security=tls&host=${domain}&type=ws&sni=${domain}#${user}"
 
+# Generate Trojan account YAML file
 cat >/home/vps/public_html/trojan-$user.yaml <<-END
-
 # Format Trojan GO/WS
-
 - name: Trojan-$user-GO/WS
   server: ${domain}
   port: 443
@@ -93,7 +108,6 @@ cat >/home/vps/public_html/trojan-$user.yaml <<-END
         Host: ${domain}
 
 # Format Trojan gRPC
-
 - name: Trojan-$user-gRPC
   type: trojan
   server: ${domain}
@@ -105,16 +119,16 @@ cat >/home/vps/public_html/trojan-$user.yaml <<-END
   network: grpc
   grpc-opts:
     grpc-service-name: trojan-grpc
-
 END
 
+# Output account details
 clear
 echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | tee -a /root/akun/trojan/$user.txt
 echo -e "\E[0;41;36m          TRIAL TROJAN ACCOUNT           \E[0m" | tee -a /root/akun/trojan/$user.txt
 echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | tee -a /root/akun/trojan/$user.txt
 echo -e "Remarks          : ${user}" | tee -a /root/akun/trojan/$user.txt
 echo -e "Host/IP          : ${domain}" | tee -a /root/akun/trojan/$user.txt
-echo -e "port             : 443" | tee -a /root/akun/trojan/$user.txt
+echo -e "Port             : 443" | tee -a /root/akun/trojan/$user.txt
 echo -e "Key              : ${uuid}" | tee -a /root/akun/trojan/$user.txt
 echo -e "Path             : /trojan-ws" | tee -a /root/akun/trojan/$user.txt
 echo -e "ServiceName      : trojan-grpc" | tee -a /root/akun/trojan/$user.txt
@@ -130,4 +144,3 @@ echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━�
 echo "" | tee -a /root/akun/trojan/$user.txt
 read -n 1 -s -r -p "Press any key to back on menu"
 menu
-fi
