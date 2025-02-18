@@ -1,5 +1,6 @@
 #!/bin/bash
-#!/bin/bash
+
+# Define colors
 BIBlack='\033[1;90m'      # Black
 BIRed='\033[1;91m'        # Red
 BIGreen='\033[1;92m'      # Green
@@ -21,7 +22,7 @@ ICyan='\033[0;96m'        # Cyan
 IWhite='\033[0;97m'       # White
 NC='\e[0m'
 
-# // Export Color & Information
+# Export Color & Information
 export RED='\033[0;31m'
 export GREEN='\033[0;32m'
 export YELLOW='\033[0;33m'
@@ -31,7 +32,7 @@ export CYAN='\033[0;36m'
 export LIGHT='\033[0;37m'
 export NC='\033[0m'
 
-# // Export Banner Status Information
+# Export Banner Status Information
 export EROR="[${RED} EROR ${NC}]"
 export INFO="[${YELLOW} INFO ${NC}]"
 export OKEY="[${GREEN} OKEY ${NC}]"
@@ -39,66 +40,73 @@ export PENDING="[${YELLOW} PENDING ${NC}]"
 export SEND="[${YELLOW} SEND ${NC}]"
 export RECEIVE="[${YELLOW} RECEIVE ${NC}]"
 
-# // Export Align
+# Export Align
 export BOLD="\e[1m"
 export WARNING="${RED}\e[5m"
 export UNDERLINE="\e[4m"
 
-# // Exporting URL Host
-#export Server_URL="raw.githubusercontent.com/wunuit/test/main"
-#export Server1_URL="raw.githubusercontent.com/wunuit/limit/main"
-#export Server_Port="443"
-#export Server_IP="underfined"
-#export Script_Mode="Stable"
-#export Auther=".geovpn"
-
-# // Root Checking
+# Root Checking
 if [ "${EUID}" -ne 0 ]; then
-		echo -e "${EROR} Please Run This Script As Root User !"
-		exit 1
+    echo -e "${EROR} Please Run This Script As Root User !"
+    exit 1
 fi
 
-# // Exporting IP Address
-export IP=$( curl -s https://ipinfo.io/ip/ )
+# Exporting IP Address
+export IP=$(curl -s https://ipinfo.io/ip/)
 
-# // Exporting Network Interface
+# Exporting Network Interface
 export NETWORK_IFACE="$(ip route show to default | awk '{print $5}')"
 
-red='\e[1;31m'
-green='\e[1;32m'
-yell='\e[1;33m'
-NC='\e[0m'
-green() { echo -e "\\033[32;1m${*}\\033[0m"; }
+# Function to display colored messages
 red() { echo -e "\\033[31;1m${*}\\033[0m"; }
+green() { echo -e "\\033[32;1m${*}\\033[0m"; }
+yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
 
+# Clear screen
 clear
+
+# Check OS
 if [[ -e /etc/debian_version ]]; then
-	source /etc/os-release
-	OS=$ID # debian or ubuntu
+    source /etc/os-release
+    OS=$ID # debian or ubuntu
 elif [[ -e /etc/centos-release ]]; then
-	source /etc/os-release
-	OS=centos
+    source /etc/os-release
+    OS=centos
 fi
 
-echo "kanyut installer"
-echo "Progress lur!!..."
-sleep 2
+echo "Kanyut Installer"
+echo "Progress..."
+sleep 1
 
+# Restart vnstat service
 /etc/init.d/vnstat restart >/dev/null 2>&1
+
+# Download and install vnstat
 wget -q https://humdi.net/vnstat/vnstat-2.6.tar.gz
+if [ $? -ne 0 ]; then
+    red "Failed to download vnstat!"
+    exit 1
+fi
+
 tar zxvf vnstat-2.6.tar.gz
 cd vnstat-2.6
 ./configure --prefix=/usr --sysconfdir=/etc >/dev/null 2>&1 && make >/dev/null 2>&1 && make install >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+    red "Failed to compile and install vnstat!"
+    exit 1
+fi
+
 cd
-vnstat -u -i $NET
-sed -i 's/Interface "'""eth0""'"/Interface "'""$NET""'"/g' /etc/vnstat.conf
+vnstat -u -i $NETWORK_IFACE
+sed -i 's/Interface "'"eth0"'"/Interface "'"$NETWORK_IFACE"'"/g' /etc/vnstat.conf
 chown vnstat:vnstat /var/lib/vnstat -R
 systemctl enable vnstat >/dev/null 2>&1
 /etc/init.d/vnstat restart >/dev/null 2>&1
+
+# Clean up
 rm -f /root/vnstat-2.6.tar.gz >/dev/null 2>&1
 rm -rf /root/vnstat-2.6 >/dev/null 2>&1
 
-yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
-yellow "Done Bangsat...!!"
-sleep 3
+yellow "Installation completed successfully!"
+sleep 2
 clear
