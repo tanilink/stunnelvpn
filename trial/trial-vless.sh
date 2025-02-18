@@ -1,159 +1,136 @@
 #!/bin/bash
 
-red() { echo -e "\\033[32;1m${*}\\033[0m"; }
+# ==========================================
+# Color
+RED='\033[0;31m'
+NC='\033[0m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+LIGHT='\033[0;37m'
+# ==========================================
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[0;33m'
+export BLUE='\033[0;34m'
+export PURPLE='\033[0;35m'
+export CYAN='\033[0;36m'
+export LIGHT='\033[0;37m'
+export NC='\033[0m'
+export ungu='\033[0;35m'
 
-# Getting
-MYIP=$(wget -qO- ipinfo.io/ip);
-echo "Checking VPS"
+# izin
+MYIP=$(wget -qO- ipinfo.io/ip)
+echo "Memeriksa VPS Anda..."
+sleep 0.5
+
 CEKEXPIRED () {
-    today=$(date -d +1day +%Y-%m-%d)
-    Exp1=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep $MYIP | awk '{print $3}')
-    if [[ $today < $Exp1 ]]; then
-    echo -e "\e[32mSTATUS SCRIPT AKTIF...\e[0m"
+    today=$(date +%Y-%m-%d)  # Fixed the date format
+    Exp1=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep "$MYIP" | awk '{print $3}')
+    
+    if [[ "$today" < "$Exp1" ]]; then
+        echo "Status script aktif.."
     else
-    echo -e "\e[31mSCRIPT ANDA EXPIRED!\e[0m";
+        echo "SCRIPT ANDA EXPIRED"
+        exit 0
+    fi
+}
+
+IZIN=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | awk '{print $4}' | grep "$MYIP")
+if [ "$MYIP" = "$IZIN" ]; then
+    echo "IZIN DI TERIMA!!"
+    CEKEXPIRED
+else
+    echo "Akses ditolak!! Benget sia hurung!!"
     exit 0
 fi
-}
-IZIN=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | awk '{print $4}' | grep $MYIP)
-if [ $MYIP = $IZIN ]; then
-echo -e "\e[32mPermission Accepted...\e[0m"
-CEKEXPIRED
-else
-echo -e "\e[31mPermission Denied!\e[0m";
-exit 0
-fi
+
 clear
 
+# Getting info for creating the trial account
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
+echo -e "\E[44;1;39m                 ⇱ CREATE TRIAL UDP  ⇲            \E[0m"
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
+echo -e "Akumulasi masa aktif minimal 15 menit, (min = 15)"
+read -p "Masukkan angka (menit): " mm
+
+# Validasi input untuk memastikan angka yang dimasukkan adalah angka dan minimal 15 menit
+if ! [[ "$mm" =~ ^[0-9]+$ ]] || [ "$mm" -lt 15 ]; then
+    echo "Masa aktif minimal 15 menit. Mengatur ke 15 menit."
+    mm=15
+fi
+
+Login=trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
+masaaktif=$mm
+Pass="1"
+max="2"
 domain=$(cat /etc/xray/domain)
+sldomain=$(cat /root/nsdomain)
+cdndomain=$(cat /root/awscdndomain)
+slkey=$(cat /etc/slowdns/server.pub)
 clear
-until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
-  echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-  echo -e "\E[0;41;36m            TRIAL VLESS ACCOUNT           \E[0m"
-  echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "masa aktif minimal 1 jam, angka 1 sama dengan 1 jam"
-read -p "masukan angka: " hh
-  Login=trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
-  user=$Login
-  CLIENT_EXISTS=$(grep -w $user /etc/xray/config.json | wc -l)
 
-  if [[ ${CLIENT_EXISTS} == '1' ]]; then
-    clear
-    echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-    echo -e "\E[0;41;36m             VLESS ACCOUNT           \E[0m"
-    echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-    echo ""
-    echo "A client with the specified name was already created, please choose another name."
-    echo ""
-    echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-    read -n 1 -s -r -p "Press any key to back on menu"
-    menu
-  fi
-done
-uuid=$(cat /proc/sys/kernel/random/uuid)
-masaaktif=$hh
-exp=$(date -d "$masaaktif day" +"%M")
-sed -i '/#vless$/a\#& '"$user $exp"'\
-},{"id": "'""$uuid""'","email": "'""$user""'"' /etc/xray/config.json
-sed -i '/#vlessgrpc$/a\#& '"$user $exp"'\
-},{"id": "'""$uuid""'","email": "'""$user""'"' /etc/xray/config.json
+echo "Script AutoCreate Akun SSH dan OpenVPN By GretongersVPN"
+sleep 3
+echo "Ping Host"
+echo "Cek Hak Akses..."
+sleep 0.5
+echo "Permission Accepted"
+clear
+sleep 0.5
+echo "Membuat Akun: $Login"
+sleep 0.5
+echo "Setting Password: $Pass"
+sleep 0.5
+IP=$(wget -qO- ipinfo.io/ip)
+ws="$(cat ~/log-install.txt | grep -w "Websocket TLS" | cut -d: -f2 | sed 's/ //g')"
+ws2="$(cat ~/log-install.txt | grep -w "Websocket None TLS" | cut -d: -f2 | sed 's/ //g')"
+ssl="$(cat ~/log-install.txt | grep -w "Stunnel5" | cut -d: -f2)"
+sqd="$(cat ~/log-install.txt | grep -w "Squid" | cut -d: -f2)"
+ovpn="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+ovpn2="$(netstat -nlpu | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+clear
 
-vlesslink1="vless://${uuid}@${domain}:443?path=/vless&security=tls&encryption=none&type=ws#${user}"
-vlesslink2="vless://${uuid}@${domain}:80?path=/vless&encryption=none&type=ws#${user}"
-vlesslink3="vless://${uuid}@${domain}:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=vless-grpc&sni=${domain}#${user}"
+# Restart services and enable
+systemctl stop client-sldns
+systemctl stop server-sldns
+pkill sldns-server
+pkill sldns-client
+systemctl enable client-sldns
+systemctl enable server-sldns
+systemctl start client-sldns
+systemctl start server-sldns
+systemctl restart client-sldns
+systemctl restart server-sldns
+systemctl restart ssh-ohp
+systemctl restart rc-local
+systemctl restart dropbear-ohp
+systemctl restart openvpn-ohp
 
-cat >/home/vps/public_html/vless-$user.yaml <<-END
-
-# Format Vless WS TLS
-
-- name: Vless-$user-WS TLS
-  server: ${domain}
-  port: 443
-  type: vless
-  uuid: ${uuid}
-  cipher: auto
-  tls: true
-  skip-cert-verify: true
-  servername: ${domain}
-  network: ws
-  ws-opts:
-    path: /vless
-    headers:
-      Host: ${domain}
-
-# Format Vless WS Non TLS
-
-- name: Vless-$user-WS (CDN) Non TLS
-  server: ${domain}
-  port: 80
-  type: vless
-  uuid: ${uuid}
-  cipher: auto
-  tls: false
-  skip-cert-verify: false
-  servername: ${domain}
-  network: ws
-  ws-opts:
-    path: /vless
-    headers:
-      Host: ${domain}
-  udp: true
-
-# Format Vless gRPC (SNI)
-
-- name: Vless-$user-gRPC (SNI)
-  server: ${domain}
-  port: 443
-  type: vless
-  uuid: ${uuid}
-  cipher: auto
-  tls: true
-  skip-cert-verify: true
-  servername: ${domain}
-  network: grpc
-  grpc-opts:
-  grpc-mode: gun
-  grpc-service-name: vless-grpc
-  udp: true
-
-
-
-END
-
-systemctl restart xray
-systemctl restart nginx
-
-DATADB=$(cat /root/akun/vless/.vless.conf | grep "^#&" | grep -w "${user}" | awk '{print $2}')
-if [[ "${DATADB}" != '' ]]; then
-  sed -i "/\b${user}\b/d" /root/akun/vless/.vless.conf
-fi
-echo "#& ${user} ${exp} ${uuid}" >>/root/akun/vless/.vless.conf
+# Create user account with proper expiration time based on minutes
+useradd -e $(date -d "$masaaktif minutes" +"%Y-%m-%d %H:%M:%S") -s /bin/false -M "$Login"
+expi=$(chage -l "$Login" | grep "Account expires" | awk -F": " '{print $2}')
+echo -e "$Pass\n$Pass\n" | passwd "$Login" &> /dev/null
+hariini=$(date -d "0 hours" +"%H:%M:%S")
+expi=$(date -d "$masaaktif minutes" +"%H:%M:%S")
 
 clear
-echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /root/akun/vless/$user.txt
-echo -e "\E[0;41;36m    Xray/Vless Account     \E[0m" | tee -a /root/akun/vless/$user.txt
-echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /root/akun/vless/$user.txt
-echo -e "Remarks     : ${user}" | tee -a /root/akun/vless/$user.txt
-echo -e "Domain      : ${domain}" | tee -a /root/akun/vless/$user.txt
-echo -e "port TLS    : 443" | tee -a /root/akun/vless/$user.txt
-echo -e "Port DNS    : 443" | tee -a /root/akun/vless/$user.txt
-echo -e "Port NTLS   : 80" | tee -a /root/akun/vless/$user.txt
-echo -e "User ID     : ${uuid}" | tee -a /root/akun/vless/$user.txt
-echo -e "Encryption  : none" | tee -a /root/akun/vless/$user.txt
-echo -e "Path TLS    : /vless " | tee -a /root/akun/vless/$user.txt
-echo -e "ServiceName : vless-grpc" | tee -a /root/akun/vless/$user.txt
-echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /root/akun/vless/$user.txt
-echo -e "Link TLS    : ${vlesslink1}" | tee -a /root/akun/vless/$user.txt
-echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /root/akun/vless/$user.txt
-echo -e "Link NTLS   : ${vlesslink2}" | tee -a /root/akun/vless/$user.txt
-echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /root/akun/vless/$user.txt
-echo -e "Link GRPC   : ${vlesslink3}" | tee -a /root/akun/vless/$user.txt
-echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /root/akun/vless/$user.txt
-echo -e "Format OpenClash : http://${domain}:81/vless-$user.yaml" | tee -a /root/akun/vless/$user.txt
-echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /root/akun/vless/$user.txt
-echo -e "Expired On : $exp" | tee -a /root/akun/vless/$user.txt
-echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /root/akun/vless/$user.txt
-echo -e "" | tee -a /root/akun/vless/$user.txt
-read -n 1 -s -r -p "Press any key to back on menu"
+echo -e ""
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
+echo -e "\E[44;1;39m                 ⇱ TRIAL AKUN SSH UDP ⇲            \E[0m"
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
+echo -e "${LIGHT}"
+echo -e "IP/Host: $IP"
+echo -e "Domain SSH: $domain"
+echo -e "Username: $Login"
+echo -e "Password: $Pass"
+echo -e "Port UDP: 1-2288"
+echo -e "Created: Jam $hariini"
+echo -e "Expired: Jam $expi"
 
-menu
+echo -e "${LIGHT}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${CYAN}     Terimakasih sudah menggunakan" 
+echo -e "${CYAN}        script Tunneling "
+echo -e "${LIGHT}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
