@@ -140,9 +140,9 @@ fi
 clear
 
 # Tampilan header
-echo -e "\e[33;1m┌───────────────────────────────────────────────┐\e[0m"
-echo -e "\e[33;1m│          \e[44;37;1m  VPN TUNNELING STATUS  \e[0m          \e[33;1m│\e[0m"
-echo -e "\e[33;1m└───────────────────────────────────────────────┘\e[0m"
+echo -e "\e[33;1m███████████████████████████████████████████████\e[0m"
+echo -e "\e[33;1m█           \e[44;37;1m VPN TUNNELING STATUS \e[0m           █\e[0m"
+echo -e "\e[33;1m███████████████████████████████████████████████\e[0m"
 
 # Tampilkan sisa hari masa aktif (sertifikat)
 echo -e "\e[33;1m                     \e[37;1m ${left} Hari Tersisa\e[0m"
