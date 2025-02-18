@@ -160,18 +160,26 @@ echo -e "\e[33;1m┃ 🏢 ISP      : \e[32;1m$(curl -s ipinfo.io/org | cut -d ' 
 echo -e "\e[33;1m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\e[0m"
 
 # Tampilan status layanan
-echo -e "\e[33;1m┌──────────────────────────────────────────────────┐\e[0m"
-echo -e "\e[33;1m│\e[34;1m SSH   : ${status_ssh}   XRAY  : ${status_xray}   NGINX : ${status_nginx} \e[33;1m│\e[0m"
-echo -e "\e[33;1m└──────────────────────────────────────────────────┘\e[0m"
+echo -e "\e[91;1m████████████████████████████████████████████████\e[0m"
+echo -e "\e[91;1m█\e[92;1m     🚀 SERVICE STATUS MONITOR 🚀      \e[91;1m█\e[0m"
+echo -e "\e[91;1m████████████████████████████████████████████████\e[0m"
+echo -e "\e[91;1m█\e[94;1m SSH      \e[93;1m🔹 : \e[92;1m${status_ssh}   \e[91;1m█\e[0m"
+echo -e "\e[91;1m█\e[94;1m XRAY     \e[93;1m🔹 : \e[92;1m${status_xray}  \e[91;1m█\e[0m"
+echo -e "\e[91;1m█\e[94;1m NGINX    \e[93;1m🔹 : \e[92;1m${status_nginx} \e[91;1m█\e[0m"
+echo -e "\e[91;1m████████████████████████████████████████████████\e[0m"
 
 # Tampilan informasi jumlah user dan protokol
-echo -e "\e[33;1m   \e[37mSSHOPENVPN: $ssh1   SHADOWSOCKS: $ssa   NOOBZVPN: $noob\e[0m"
-echo -e "\e[33;1m           \e[37mVMESS: $vma   VLESS: $vla   TROJAN: $tra\e[0m"
+echo -e "\e[91;1m███████████████████████████████████████████████████\e[0m"
+echo -e "\e[91;1m█\e[92;1m         🚀 ACTIVE VPN CONNECTIONS 🚀         \e[91;1m█\e[0m"
+echo -e "\e[91;1m███████████████████████████████████████████████████\e[0m"
+echo -e "\e[94;1m 🔹 SSH/OVPN  🔒  : \e[92;1m$ssh1   \e[94;1m🔹 SHADOWSOCKS 🛡️  : \e[92;1m$ssa   \e[94;1m🔹 NOOBZVPN 🌐  : \e[92;1m$noob  \e[0m"
+echo -e "\e[94;1m 🔹 VMESS      ⚡  : \e[92;1m$vma    \e[94;1m🔹 VLESS       🔗  : \e[92;1m$vla   \e[94;1m🔹 TROJAN    🏴‍☠️  : \e[92;1m$tra   \e[0m"
+echo -e "\e[91;1m███████████████████████████████████████████████████\e[0m"
 
 # Tampilan petunjuk penggunaan menu
-echo -e "\e[33;1m┌──────────────────────────────────────────────────┐\e[0m"
-echo -e "\e[33;1m│              \e[4;37mAccess Use Menu Command\e[0m              \e[33;1m│\e[0m"
-echo -e "\e[33;1m└──────────────────────────────────────────────────┘\e[0m"
+echo -e "\e[91;1m███████████████████████████████████████████████████\e[0m"
+echo -e "\e[94;1m█         📜 \e[4;97mACCESS USE MENU COMMAND\e[0m 📜         \e[94;1m█\e[0m"
+echo -e "\e[91;1m███████████████████████████████████████████████████\e[0m"
 
 # Set warna akhir (opsional)
 echo -e "\e[35;1m"
