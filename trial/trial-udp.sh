@@ -22,36 +22,48 @@ export NC='\033[0m'
 export ungu='\033[0;35m'
 
 # izin
-MYIP=$(wget -qO- ipinfo.io/ip);
-echo "memeriksa vps anda"
+MYIP=$(wget -qO- ipinfo.io/ip)
+echo "Memeriksa VPS Anda..."
 sleep 0.5
+
 CEKEXPIRED () {
-        today=$(date -d +1day +%Y -%m -%d)
-        Exp1=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep $MYIP | awk '{print $3}')
-        if [[ $today < $Exp1 ]]; then
-        echo "status script aktif.."
-        else
-        echo "SCRIPT ANDA EXPIRED";
+    today=$(date +%Y-%m-%d)  # Fixed the date format
+    Exp1=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep "$MYIP" | awk '{print $3}')
+    
+    if [[ "$today" < "$Exp1" ]]; then
+        echo "Status script aktif.."
+    else
+        echo "SCRIPT ANDA EXPIRED"
         exit 0
-fi
+    fi
 }
-IZIN=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | awk '{print $4}' | grep $MYIP)
-if [ $MYIP = $IZIN ]; then
-echo "IZIN DI TERIMA!!"
-CEKEXPIRED
+
+IZIN=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | awk '{print $4}' | grep "$MYIP")
+if [ "$MYIP" = "$IZIN" ]; then
+    echo "IZIN DI TERIMA!!"
+    CEKEXPIRED
 else
-echo "Akses di tolak!! Benget sia hurung!!";
-exit 0
+    echo "Akses ditolak!! Benget sia hurung!!"
+    exit 0
 fi
+
 clear
-# Getting
+
+# Getting info for creating the trial account
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
 echo -e "\E[44;1;39m                 ⇱ CREATE TRIAL UDP  ⇲            \E[0m"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
-echo -e "Akumulasi masa aktif minimal 1 jam,(1=1jam)"
-read -p "masukan angka: " hh
+echo -e "Akumulasi masa aktif minimal 15 menit, (min = 15)"
+read -p "Masukkan angka (menit): " mm
+
+# Validasi input untuk memastikan angka yang dimasukkan adalah angka dan minimal 15 menit
+if ! [[ "$mm" =~ ^[0-9]+$ ]] || [ "$mm" -lt 15 ]; then
+    echo "Masa aktif minimal 15 menit. Mengatur ke 15 menit."
+    mm=15
+fi
+
 Login=trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
-masaaktif=$hh
+masaaktif=$mm
 Pass="1"
 max="2"
 domain=$(cat /etc/xray/domain)
@@ -62,25 +74,26 @@ clear
 
 echo "Script AutoCreate Akun SSH dan OpenVPN By GretongersVPN"
 sleep 3
-echo Ping Host
-echo Cek Hak Akses...
+echo "Ping Host"
+echo "Cek Hak Akses..."
 sleep 0.5
-echo Permission Accepted
+echo "Permission Accepted"
 clear
 sleep 0.5
-echo Membuat Akun: $Login
+echo "Membuat Akun: $Login"
 sleep 0.5
-echo Setting Password: $Pass
+echo "Setting Password: $Pass"
 sleep 0.5
-IP=$(wget -qO- ipinfo.io/ip);
-ws="$(cat ~/log-install.txt | grep -w "Websocket TLS" | cut -d: -f2|sed 's/ //g')"
-ws2="$(cat ~/log-install.txt | grep -w "Websocket None TLS" | cut -d: -f2|sed 's/ //g')"
-
+IP=$(wget -qO- ipinfo.io/ip)
+ws="$(cat ~/log-install.txt | grep -w "Websocket TLS" | cut -d: -f2 | sed 's/ //g')"
+ws2="$(cat ~/log-install.txt | grep -w "Websocket None TLS" | cut -d: -f2 | sed 's/ //g')"
 ssl="$(cat ~/log-install.txt | grep -w "Stunnel5" | cut -d: -f2)"
 sqd="$(cat ~/log-install.txt | grep -w "Squid" | cut -d: -f2)"
 ovpn="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
 ovpn2="$(netstat -nlpu | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
 clear
+
+# Restart services and enable
 systemctl stop client-sldns
 systemctl stop server-sldns
 pkill sldns-server
@@ -91,16 +104,18 @@ systemctl start client-sldns
 systemctl start server-sldns
 systemctl restart client-sldns
 systemctl restart server-sldns
-
 systemctl restart ssh-ohp
 systemctl restart rc-local
 systemctl restart dropbear-ohp
 systemctl restart openvpn-ohp
-useradd -e `date -d "$masaaktif hours" +"%H:%M:%S"` -s /bin/false -M $Login
-expi="$(chage -l $Login | grep "Account expires" | awk -F": " '{print $2}')"
-echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
-hariini=`date -d "0 hours" +"%H:%M:%S"`
-expi=`date -d "$masaaktif hours" +"%H:%M:%S"`
+
+# Create user account with proper expiration time based on minutes
+useradd -e $(date -d "$masaaktif minutes" +"%Y-%m-%d %H:%M:%S") -s /bin/false -M "$Login"
+expi=$(chage -l "$Login" | grep "Account expires" | awk -F": " '{print $2}')
+echo -e "$Pass\n$Pass\n" | passwd "$Login" &> /dev/null
+hariini=$(date -d "0 hours" +"%H:%M:%S")
+expi=$(date -d "$masaaktif minutes" +"%H:%M:%S")
+
 clear
 echo -e ""
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
