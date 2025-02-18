@@ -148,14 +148,16 @@ echo -e "\e[33;1m█████████████████████
 echo -e "\e[33;1m                     \e[37;1m ${left} Hari Tersisa\e[0m"
 
 # Tampilan status sistem dan jaringan
-echo -e "\e[33;1m┌──────────────────────────────────────────────────┐\e[0m"
-echo -e "\e[33;1m│•\e[31;1m Uptime: \e[32;1m$(uptime -p | cut -d ' ' -f2-)\e[0m"
-echo -e "\e[33;1m│•\e[31;1m Waktu:  \e[32;1m$(date -d '0 days' +"%d-%m-%Y | %X")\e[0m"
-echo -e "\e[33;1m│•\e[31;1m Domain: \e[32;1m$(cat /etc/xray/domain)\e[0m"
-echo -e "\e[33;1m│•\e[31;1m NS Domain: \e[32;1m$(cat /root/nsdomain)\e[0m"
-echo -e "\e[33;1m│•\e[31;1m IP VPS: \e[32;1m$MYIP\e[0m"
-echo -e "\e[33;1m│•\e[31;1m ISP: \e[32;1m$(curl -s ipinfo.io/org | cut -d ' ' -f2-10)\e[0m"
-echo -e "\e[33;1m└──────────────────────────────────────────────────┘\e[0m"
+echo -e "\e[33;1m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\e[0m"
+echo -e "\e[33;1m┃       \e[44;37;1m SYSTEM & NETWORK STATUS \e[0m       \e[33;1m┃\e[0m"
+echo -e "\e[33;1m┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\e[0m"
+echo -e "\e[33;1m┃ 🔄 Uptime   : \e[32;1m$(uptime -p | cut -d ' ' -f2-)\e[0m"
+echo -e "\e[33;1m┃ 🕒 Waktu    : \e[32;1m$(date -d '0 days' +"%d-%m-%Y | %X")\e[0m"
+echo -e "\e[33;1m┃ 🌐 Domain   : \e[32;1m$(cat /etc/xray/domain)\e[0m"
+echo -e "\e[33;1m┃ 🔗 NS Domain: \e[32;1m$(cat /root/nsdomain)\e[0m"
+echo -e "\e[33;1m┃ 📡 IP VPS   : \e[32;1m$MYIP\e[0m"
+echo -e "\e[33;1m┃ 🏢 ISP      : \e[32;1m$(curl -s ipinfo.io/org | cut -d ' ' -f2-10)\e[0m"
+echo -e "\e[33;1m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\e[0m"
 
 # Tampilan status layanan
 echo -e "\e[33;1m┌──────────────────────────────────────────────────┐\e[0m"
