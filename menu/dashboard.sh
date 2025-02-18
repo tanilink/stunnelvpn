@@ -1,210 +1,175 @@
 #!/bin/bash
-# =========================================
-clear
-vlx=$(grep -c -E "^#& " "/etc/xray/config.json")
-let vla=$vlx/2
-vmc=$(grep -c -E "^### " "/etc/xray/config.json")
-let vma=$vmc/2
-ssh1="$(awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' /etc/passwd | wc -l)"
-
-trx=$(grep -c -E "^#! " "/etc/xray/config.json")
-let tra=$trx/2
-ssx=$(grep -c -E "^## " "/etc/xray/config.json")
-let ssa=$ssx/2
-
-nob=$(noobzvpns --info-all-user | grep -i "username" | wc -l)
-noob=$(cat /etc/noobzvpns/.noobzvpns.db | grep "#nob#" | wc -l)
+# Skrip Status VPN TUNNELING - Versi Dirapikan
 
 clear
-# // Exporting Language to UTF-8
+
+# Hapus file upsc lama (jika ada) dari direktori saat ini dan /root
+rm -rf upsc.sh upsc.sh.1 upsc.sh.2 /root/upsc.sh /root/upsc.sh.1 /root/upsc.sh.2
+
+# Ambil tanggal dari server (Google) dan simpan ke variabel 'biji'
+dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+biji=$(date +"%Y-%m-%d" -d "$dateFromServer")
+
+########### WARNA (opsional) ############
+NC='\033[0m'
+# Warna lain dapat didefinisikan jika diperlukan
+
+# Set bahasa ke UTF-8
 export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 export LANGUAGE='en_US.UTF-8'
 export LC_CTYPE='en_US.utf8'
 
-# // Export Color & Information
-#export RED='\033[0;31m'
-#export GREEN='\033[0;36m'
-#export YELLOW='\033[0;33m'
-#export BLUE='\033[0;34m'
-#export PURPLE='\033[0;35m'
-#export CYAN='\033[0;35m'
-#export LIGHT='\033[0;37m'
-export NC='\033[0m'
+# Hitung jumlah user dan data konfigurasi dari /etc/xray/config.json
+vlx=$(grep -c -E "^#& " "/etc/xray/config.json")
+vla=$(( vlx / 2 ))
+vmc=$(grep -c -E "^### " "/etc/xray/config.json")
+vma=$(( vmc / 2 ))
+trx=$(grep -c -E "^#! " "/etc/xray/config.json")
+tra=$(( trx / 2 ))
+ssx=$(grep -c -E "^## " "/etc/xray/config.json")
+ssa=$(( ssx / 2 ))
 
-# // Export Banner Status Information
-#export EROR="[${RED} EROR \e[0m]"
-#export INFO="[\e[34;1m INFO \e[0m]"
-#export OKEY="[\e[33;1m OKEY \e[0m]"
-#export PENDING="[\e[34;1m PENDING \e[0m]"
-#export SEND="[\e[34;1m SEND \e[0m]"
-#export RECEIVE="[\e[34;1m RECEIVE \e[0m]"
+# Hitung jumlah user SSH (uid>=1000) dari /etc/passwd
+ssh1=$(awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' /etc/passwd | wc -l)
 
-# // Export Align
-#export BOLD="\e[1m"
-#export WARNING="${RED}\e[5m"
-#export UNDERLINE="\e[4m"
+# Hitung data NOOBZVPN
+nob=$(noobzvpns --info-all-user | grep -i "username" | wc -l)
+noob=$(grep -c "#nob#" /etc/noobzvpns/.noobzvpns.db)
 
-# // Exporting URL Host
-#export Server_URL="autosc.me/aio"
-#export Server_Port="443"
-#export Server_IP="underfined"
-#export Script_Mode="Stable"
-#export Auther="XdrgVPN"
-# Getting
-#echo "sedang memverifkasi"
-MYIP=$(wget -qO- ipinfo.io/ip);
-CEKEXPIRED () {
-    today=$(date -d +1day +%Y-%m-%d)
-    Exp1=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep $MYIP | awk '{print $3}')
-    if [[ $today < $Exp1 ]]; then
-echo -e ""
 clear
+
+# Ambil IP VPS
+MYIP=$(wget -qO- ipinfo.io/ip)
+
+# Fungsi untuk memeriksa masa aktif script
+CEKEXPIRED() {
+    # Ambil tanggal besok
+    today=$(date -d "+1 day" +"%Y-%m-%d")
+    # Ambil tanggal kadaluarsa dari URL registrasi (sesuaikan dengan format data)
+    Exp1=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep "$MYIP" | awk '{print $3}')
+    if [[ "$today" < "$Exp1" ]]; then
+        clear
     else
-echo -e "\e[31manda di tolak!\e[0m"
-    exit 
-fi
+        echo -e "\e[31mSCRIPT ANDA EXPIRED!\e[0m"
+        exit 0
+    fi
 }
 
-if [ ! -e /tmp/trojan ]; then
-  mkdir -p /tmp/trojan
-fi
+# Buat direktori sementara jika belum ada
+for dir in /tmp/trojan /tmp/vmess /tmp/vless; do
+    [ ! -d "$dir" ] && mkdir -p "$dir"
+done
 
-if [ ! -e /tmp/vmess ]; then
-  mkdir -p /tmp/vmess
-fi
-
-if [ ! -e /tmp/vless ]; then
-  mkdir -p /tmp/vless
-fi
-
-IZIN=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | awk '{print $4}' | grep $MYIP)
-if [ $MYIP = $IZIN ]; then
-#echo "status akun masih aktif"
-CEKEXPIRED 
+# Periksa izin/script aktif berdasarkan IP
+IZIN=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | awk '{print $4}' | grep "$MYIP")
+if [ "$MYIP" = "$IZIN" ]; then
+    CEKEXPIRED
 else
-echo -e "\e[31mSCRIPT ANDA EXPIRED!\e[0m"
-exit 0
+    echo -e "\e[31mSCRIPT ANDA EXPIRED!\e[0m"
+    exit 0
 fi
-# status
-#rm -rf /root/status
-#wget -q -O /root/status "https://raw.githubusercontent.com/RifkyStoretuneling/stunnelvpn/momok/statushariini" 
+
 clear
-today=`date -d "0 days" +"%Y-%m-%d"`
-Exp2=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep $MYIP | awk '{print $3}')
+
+# Hitung sisa masa aktif sertifikat
+today=$(date -d "0 days" +"%Y-%m-%d")
+Exp2=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep "$MYIP" | awk '{print $3}')
 if [ "$Exp2" == "lifetime" ]; then
     Exp2="2099-12-09"
 fi
-# CERTIFICATE STATUS
 d1=$(date -d "$Exp2" +%s)
 d2=$(date -d "$today" +%s)
-left=$(((d1 - d2) / 86400))
+left=$(( (d1 - d2) / 86400 ))
 
-
- 
-#rm cybervpn.zip
-#rm -rf cybervpn.zip
-
-datediff() {
-    d1=$(date -d "$1" +%s)
-    d2=$(date -d "$2" +%s)
-    echo -e "$COLOR1 \e[0m Expiry In   : $(( (d1 - d2) / 86400 )) Days"
-}
-
+# Restart fail2ban
 systemctl restart fail2ban
 
-# // Root Checking
+# Pastikan skrip dijalankan sebagai root
 if [ "${EUID}" -ne 0 ]; then
-                echo -e "${EROR} Please Run This Script As Root User !"
-                exit 1
+    echo -e "Silakan jalankan skrip ini sebagai root!"
+    exit 1
 fi
-#tomem="$(free | awk '{print $2}' | head -2 | tail -n 1 )"
-#usmem="$(free | awk '{print $3}' | head -2 | tail -n 1 )"
-#cpu1="$(mpstat | awk '{print $4}' | head -4 |tail -n 1)"
-#cpu2="$(mpstat | awk '{print $6}' | head -4 |tail -n 1)"
 
-#update
-#wget -q -O updatsc.sh "https://raw.githubusercontent.com/RifkyStoretuneling/stunnelvpn/momok/menu/updateyes.sh" && chmod +x updatsc.sh && ./updatsc.sh 
-
-# // Exporting IP Address
-export MYIP=$( curl -s https://ipinfo.io/ip/ )
-Name=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep $MYIP | awk '{print $2}')
-Exp=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep $MYIP | awk '{print $3}')
+# Ekspor ulang IP (opsional)
+export MYIP=$(curl -s https://ipinfo.io/ip/)
+Name=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep "$MYIP" | awk '{print $2}')
+Exp=$(curl -sS https://raw.githubusercontent.com/tanilink/REGISTER/main/IPVPS | grep "$MYIP" | awk '{print $3}')
 clear
-# // nginx
-nginx=$( systemctl status nginx | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
-if [[ $nginx == "running" ]]; then
+
+# Cek status layanan NGINX
+nginx_status=$(systemctl status nginx | grep Active | awk '{print $3}' | tr -d '()')
+if [[ $nginx_status == "running" ]]; then
     status_nginx="\e[92;1mONLINE\e[0m"
 else
-    status_nginx="\e[91;1mOFLINE\e[0m"
+    status_nginx="\e[91;1mOFFLINE\e[0m"
 fi
-# // 
-xray=$( systemctl status xray | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
-if [[ $xray == "running" ]]; then
+
+# Cek status layanan XRAY
+xray_status=$(systemctl status xray | grep Active | awk '{print $3}' | tr -d '()')
+if [[ $xray_status == "running" ]]; then
     status_xray="\e[92;1mONLINE\e[0m"
 else
-    status_xray="\e[91;1mOFLINE\e[0m"
+    status_xray="\e[91;1mOFFLINE\e[0m"
 fi
 
-# // SSH Websocket Proxy
-ssh=$(/etc/init.d/ssh status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-if [[ $xray == "running" ]]; then
+# Cek status SSH (Websocket Proxy)
+ssh_status=$(/etc/init.d/ssh status | grep -i "Active" | awk '{print $3}' | tr -d '()')
+if [[ $ssh_status == "running" ]]; then
     status_ssh="\e[92;1mONLINE\e[0m"
 else
-    status_ssh="\e[91;1mOFLINE\e[0m"
+    status_ssh="\e[91;1mOFFLINE\e[0m"
 fi
 
-## // ddos
-dos=$( systemctl status ddos | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
-if [[ $dos == "running" ]]; then
-    status_dos="\e[37;1m[\e[92;1mACTIVATED\e[37;1m]\e[0m"
-else
-    status_dos="\e[91;1mOFLINE\e[0m"
-fi
-
-
-## // fail2ban
-fail2ban=$( systemctl status fail2ban | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
-if [[ $fail2ban == "running" ]]; then
+# Cek status layanan Fail2Ban
+fail2ban_status=$(systemctl status fail2ban | grep Active | awk '{print $3}' | tr -d '()')
+if [[ $fail2ban_status == "running" ]]; then
     status_fail2ban="\e[92;1mONLINE\e[0m"
 else
-    status_fail2ban="\e[91;1mOFLINE\e[0m"
+    status_fail2ban="\e[91;1mOFFLINE\e[0m"
 fi
 
-
-## // net
-netfilter=$( systemctl status netfilter-persistent | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
-if [[ $netfilter == "exited" ]]; then
+# Cek status layanan Netfilter
+netfilter_status=$(systemctl status netfilter-persistent | grep Active | awk '{print $3}' | tr -d '()')
+if [[ $netfilter_status == "exited" ]]; then
     status_net="\e[92;1mONLINE\e[0m"
 else
-    status_net="\e[91;1mOFLINE\e[0m"
+    status_net="\e[91;1mOFFLINE\e[0m"
 fi
-#ttoday="$(vnstat | grep today | awk '{print $8" "substr ($9, 1, 3)}' | head -1)"
-#tmon="$(vnstat -m | grep `date +%G-%m` | awk '{print $8" "substr ($9, 1 ,3)}' | head -1)"
-#bot
+
 clear
+
+# Tampilan header
 echo -e "\e[33;1m┌──────────────────────────────────────────────────┐\e[0m"
-echo -e "\e[33;1m│ \E[44;37;1m         °VPN TUNELING°          \E[0m \e[33;1m│\e[0m"
+echo -e "\e[33;1m│ \E[44;37;1m         °VPN TUNNELING°          \E[0m \e[33;1m│\e[0m"
 echo -e "\e[33;1m└──────────────────────────────────────────────────┘\e[0m"
-#echo -e "\e[33;1m                     ${status_dos}                        \e[0m"
-echo -e "\e[33;1m                     \e[37;1m $(((d1 - d2) / 86400))\e[35;1m.Left\e[0m"            
+
+# Tampilkan sisa hari masa aktif (sertifikat)
+echo -e "\e[33;1m                     \e[37;1m ${left} Hari Tersisa\e[0m"
+
+# Tampilan status sistem dan jaringan
 echo -e "\e[33;1m┌──────────────────────────────────────────────────┐\e[0m"
-echo -e "\e[33;1m│•\e[31;1m Uptime:\e[32;1m $( uptime -p  | cut -d " " -f 2-10000 ) "
-echo -e "\e[33;1m│•\e[31;1m Time:\e[32;1m $( date -d "0 days" +"%d-%m-%Y | %X" )"
-echo -e "\e[33;1m│•\e[31;1m Domain:\e[32;1m $( cat /etc/xray/domain )"
-echo -e "\e[33;1m│•\e[31;1m Ns Domain:\e[32;1m $(cat /root/nsdomain)"
-echo -e "\e[33;1m│•\e[31;1m Ipvps:\e[32;1m $(wget -qO- ipinfo.io/ip)"
-echo -e "\e[33;1m│•\e[31;1m Isp:\e[32;1m $(curl -s ipinfo.io/org | cut -d " " -f 2-10 )\e[0m"
+echo -e "\e[33;1m│•\e[31;1m Uptime: \e[32;1m$(uptime -p | cut -d ' ' -f2-)\e[0m"
+echo -e "\e[33;1m│•\e[31;1m Waktu:  \e[32;1m$(date -d '0 days' +"%d-%m-%Y | %X")\e[0m"
+echo -e "\e[33;1m│•\e[31;1m Domain: \e[32;1m$(cat /etc/xray/domain)\e[0m"
+echo -e "\e[33;1m│•\e[31;1m NS Domain: \e[32;1m$(cat /root/nsdomain)\e[0m"
+echo -e "\e[33;1m│•\e[31;1m IP VPS: \e[32;1m$MYIP\e[0m"
+echo -e "\e[33;1m│•\e[31;1m ISP: \e[32;1m$(curl -s ipinfo.io/org | cut -d ' ' -f2-10)\e[0m"
 echo -e "\e[33;1m└──────────────────────────────────────────────────┘\e[0m"
+
+# Tampilan status layanan
 echo -e "\e[33;1m┌──────────────────────────────────────────────────┐\e[0m"
-echo -e "\e[33;1m│\e[34;1m   SSH : ${status_ssh} \e[34;1m  XRAY : ${status_xray} \e[34;1m  NGINX : ${status_nginx}  \e[33;1m│\e[0m"
+echo -e "\e[33;1m│\e[34;1m SSH   : ${status_ssh}   XRAY  : ${status_xray}   NGINX : ${status_nginx} \e[33;1m│\e[0m"
 echo -e "\e[33;1m└──────────────────────────────────────────────────┘\e[0m"
-echo -e "\e[33;1m   \e[37mSSHOPENVPN : $ssh1  \e[37mSHADOWSOCKS : $ssa  \e[37mNOOBZVPN : $noob \e[0m"
-echo -e "\e[33;1m           \e[37mVMESS : $vma  \e[37mVLESS : $vla  \e[37mTROJAN : $tra \e[0m"
+
+# Tampilan informasi jumlah user dan protokol
+echo -e "\e[33;1m   \e[37mSSHOPENVPN: $ssh1   SHADOWSOCKS: $ssa   NOOBZVPN: $noob\e[0m"
+echo -e "\e[33;1m           \e[37mVMESS: $vma   VLESS: $vla   TROJAN: $tra\e[0m"
+
+# Tampilan petunjuk penggunaan menu
 echo -e "\e[33;1m┌──────────────────────────────────────────────────┐\e[0m"
-echo -e "\e[33;1m│              \e[4;37mAcces\e[0m \e[4;37mUse\e[0m \e[4;32mMenu\e[0m \e[4;37mCommand\e[0m              \e[33;1m│\e[0m"
+echo -e "\e[33;1m│              \e[4;37mAccess Use Menu Command\e[0m              \e[33;1m│\e[0m"
 echo -e "\e[33;1m└──────────────────────────────────────────────────┘\e[0m"
+
+# Set warna akhir (opsional)
 echo -e "\e[35;1m"
-
-
-
